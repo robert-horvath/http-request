@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/robert-horvath/http-request.svg?branch=develop)](https://travis-ci.org/robert-horvath/http-request)
-[![Code Coverage](https://codecov.io/gh/robert-horvath/http-request/branch/develop/graph/badge.svg)](https://codecov.io/gh/robert-horvath/http-request)
+[![Build Status](https://travis-ci.org/robert-horvath/http-request.svg?branch=0.1.x)](https://travis-ci.org/robert-horvath/http-request)
+[![Code Coverage](https://codecov.io/gh/robert-horvath/http-request/branch/0.1.x/graph/badge.svg)](https://codecov.io/gh/robert-horvath/http-request)
 [![Latest Stable Version](https://img.shields.io/packagist/v/robert/http-request.svg)](https://packagist.org/packages/robert/http-request)
 # HTTP Request
 The HTTP request module is a thin wrapper to access the HTTP request message information.
