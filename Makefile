@@ -1,5 +1,5 @@
 PATH := vendor/bin:$(PATH)
-.PHONY: clean dev-env no-dev-env test
+.PHONY: clean dev-env no-dev-env unit-test
 
 dev-env:
 	@echo "\033[0;33m>>> Prepare workspace for development\033[0m"
