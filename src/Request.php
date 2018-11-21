@@ -5,8 +5,14 @@ namespace RHo\Http;
 class Request implements RequestInterface
 {
 
-    /** @var array */
-    private $requestLine;
+    /** @var string */
+    private $method;
+
+    /** @var string */
+    private $target;
+
+    /** @var string */
+    private $version;
 
     /** @var array */
     private $headers;
@@ -19,15 +25,19 @@ class Request implements RequestInterface
 
     public static function init(): RequestInterface
     {
-        $requestLine = $_SERVER['REQUEST_METHOD'] . ' ' . $_SERVER['REQUEST_URI'] . ' ' . $_SERVER['SERVER_PROTOCOL'];
+        $method = $_SERVER['REQUEST_METHOD'];
+        $target = $_SERVER['REQUEST_URI'];
+        $version = $_SERVER['SERVER_PROTOCOL'];
         $headers = $_SERVER;
         $msgBodyFile = 'php://input';
-        return new self($requestLine, $headers, $msgBodyFile);
+        return new self($method, $target, $version, $headers, $msgBodyFile);
     }
 
-    public function __construct(string $requestLine, array $headers, string $msgBodyFile = 'php://input')
+    public function __construct(string $method, string $target, string $version, array $headers, string $msgBodyFile = 'php://input')
     {
-        $this->requestLine = explode(' ', $requestLine);
+        $this->method = $method;
+        $this->target = $target;
+        $this->version = $version;
         $this->headers = $headers;
         $this->msgBodyFile = $msgBodyFile;
     }
@@ -55,27 +65,27 @@ class Request implements RequestInterface
         // The at sign (@) error-control operator would work here too. However, in this case
         // running phpunit tests in Eclipse IDE fails with error due to its own
         // error handling mechanism. Executing phpunit from terminal always works.
-        set_error_handler(function ($errNo, $errStr, $errFile, $errLine) {
+        set_error_handler(function (int $errNo, string $errStr, string $errFile, int $errLine): bool {
             throw new \RuntimeException("$errStr\n$errFile:$errLine", $errNo);
         });
         $str = file_get_contents($this->msgBodyFile);
         restore_error_handler();
-        return $str;
+        return $str === FALSE ? '' : $str;
     }
 
     public function methdod(): string
     {
-        return $this->requestLine[0];
+        return $this->method;
     }
 
     public function target(): string
     {
-        return $this->requestLine[1];
+        return $this->target;
     }
 
     public function version(): string
     {
-        return $this->requestLine[2];
+        return $this->version;
     }
 
     private function initQueryStr(): void

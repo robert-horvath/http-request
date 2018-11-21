@@ -49,7 +49,8 @@ final class RequestTest extends TestCase
 
     protected function setUp()
     {
-        $this->req = new \RHo\Http\Request($this->requestLine(), $this->headers(), $this->msgBodyFile());
+        list ($method, $target, $version,) = explode(' ', $this->requestLine());
+        $this->req = new \RHo\Http\Request($method, $target, $version, $this->headers(), $this->msgBodyFile());
     }
 
     public function testRequestLine(): void
