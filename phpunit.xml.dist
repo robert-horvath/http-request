@@ -28,6 +28,9 @@
 		<testsuite name="unit-test">
 			<directory>tests</directory>
 		</testsuite>
+		<testsuite name="integration-test">
+			<directory>tests</directory>
+		</testsuite>
 	</testsuites>
 
 	<filter>
